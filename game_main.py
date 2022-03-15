@@ -1,0 +1,42 @@
+from turtle import Screen, Turtle
+import time
+from snake import Snake
+from food import Food
+from scoreboard import Scoreboard
+
+# screen setup
+screen = Screen()
+screen.setup(width=600, height=600)
+screen.bgcolor("black")
+screen.title("My Snake Game")
+
+# we will turn off the animations of our snake's movement as it will look weird
+screen.tracer(0)
+
+# create a snake
+freddy = Snake()
+lunch = Food()
+score = Scoreboard()
+
+# controls for your game
+screen.listen()
+screen.onkey(freddy.move_up, "Up")
+screen.onkey(freddy.move_down, "Down")
+screen.onkey(freddy.move_left, "Left")
+screen.onkey(freddy.move_right, "Right")
+
+game_is_on = True
+while game_is_on:
+    # now we will refresh the screen to show our snake's final location/state
+    screen.update()
+    time.sleep(0.1)
+
+    freddy.move()
+    if freddy.head.distance(lunch) <= 20:
+        lunch.refresh()
+        score.increase_score()
+
+    if freddy.game_ended():
+        game_is_on = False
+
+screen.exitonclick()
