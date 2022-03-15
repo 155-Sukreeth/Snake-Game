@@ -38,5 +38,6 @@ while game_is_on:
 
     if freddy.game_ended():
         game_is_on = False
+        score.game_ended()
 
 screen.exitonclick()
